@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import AboutUsPage from "./AboutUsPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MarketingOSLandingPage from "./MarketingOSLandingPage";
+import Blog from "./BlogPage";
+import ContactPage from "./ContactPage";
+import AdminLoginPage from "./AdminLoginPage";
+import ProtectedRoute from "./ProtectedRoute";
+import CaseStudyPage from "./CaseStudyPage";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MarketingOSLandingPage />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/aboutus" element={<AboutUsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<AdminLoginPage />} />
+        <Route path="/CaseStudyPage" element={<CaseStudyPage />} />
+        {/* Protected Route
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route> */}
+      </Routes>
+    </Router>
   );
 }
 
