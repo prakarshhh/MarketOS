@@ -10,7 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import CaseStudyPage from "./CaseStudyPage";
 function App() {
   return (
-    <Router>
+    <Router basename="/MarketOS">
       <Routes>
         <Route path="/" element={<MarketingOSLandingPage />} />
         <Route path="/blog" element={<Blog />} />
