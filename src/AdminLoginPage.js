@@ -83,9 +83,6 @@ const AdminLoginPage = () => {
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
                   <Link to="/aboutus">About Us</Link>
                 </li>
-                <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
-                  <Link to="/CaseStudyPage">Case Study</Link>
-                </li>
               </ul>
             </div>
           </div>
@@ -96,7 +93,7 @@ const AdminLoginPage = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/content">BContents</Link>
                 </li>
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
                   <Link to="/contact">Contact</Link>
@@ -191,16 +188,25 @@ const AdminLoginPage = () => {
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 {["About Us", "Contact", "Privacy Policy"].map(
-                  (link, index) => (
-                    <li key={index}>
-                      <a
-                        href="#"
-                        className="hover:text-blue-300 transition duration-300"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  )
+                  (link, index) => {
+                    // Define the corresponding routes for each link
+                    const routes = {
+                      "About Us": "/aboutus",
+                      Contact: "/contact",
+                      "Privacy Policy": "/privacyPolicy",
+                    };
+
+                    return (
+                      <li key={index}>
+                        <Link
+                          to={routes[link]} // Use the route corresponding to the link
+                          className="hover:text-blue-300 transition duration-300"
+                        >
+                          {link}
+                        </Link>
+                      </li>
+                    );
+                  }
                 )}
               </ul>
             </div>

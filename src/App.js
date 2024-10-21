@@ -8,6 +8,8 @@ import ContactPage from "./ContactPage";
 import AdminLoginPage from "./AdminLoginPage";
 import ProtectedRoute from "./ProtectedRoute";
 import CaseStudyPage from "./CaseStudyPage";
+import ContentPage from "./contentPage";
+import PrivacyPolicyPage from "./privacyPolicy";
 function App() {
   return (
     <Router basename="/MarketOS">
@@ -18,6 +20,8 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<AdminLoginPage />} />
         <Route path="/CaseStudyPage" element={<CaseStudyPage />} />
+        <Route path="/content" element={<ContentPage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         {/* Protected Route
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard" element={<Dashboard />} />
