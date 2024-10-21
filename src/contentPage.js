@@ -174,7 +174,7 @@ const ContentPage = () => {
                 </li>
                 
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
-                  <Link to="/login">Login</Link>
+                  <Link to="http://172.105.47.241:3000/Login">Login</Link>
                 </li>
               </ul>
             </div>

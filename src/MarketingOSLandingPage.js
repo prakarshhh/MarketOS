@@ -112,7 +112,7 @@ const MarketingOSLandingPage = () => {
                   <Link to="/content">Contents</Link> {/* Updated link */}
                 </li>
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
-                  <Link to="/login">Login</Link> {/* Updated link */}
+                  <Link to="http://172.105.47.241:3000/Login">Login</Link> {/* Updated link */}
                 </li>
               </ul>
             </div>
