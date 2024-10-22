@@ -200,15 +200,14 @@ const ContentPage = () => {
         </div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-6xl font-bold mb-6" data-aos="fade-up">
-            Unlock the Power of Marketing Insights
+          Discover Transformative Marketing Insights
           </h1>
           <p
             className="text-2xl mb-10 max-w-2xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Dive into our curated collection of cutting-edge blogs and inspiring
-            case studies.
+            Explore our curated collection of cutting-edge blogs and inspiring case studies designed to elevate your marketing strategies and drive success.
           </p>
         </div>
       </section>
@@ -350,7 +349,7 @@ const ContentPage = () => {
         {/* Why Read Our Blogs Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8" data-aos="fade-up">
-            Why Read Our Blogs and Case Studies?
+          Why Read Our Blogs and Case Studies?
           </h2>
           <div className="bg-white rounded-lg shadow-md p-8" data-aos="fade-up">
             <p className="text-gray-600 mb-4">
@@ -361,15 +360,14 @@ const ContentPage = () => {
             </p>
             <ul className="list-disc pl-6 text-gray-600">
               <li>
-                Stay updated with the latest marketing trends and technologies
+              Stay updated with the latest marketing trends and technologies.
               </li>
-              <li>Learn from real-world examples and success stories</li>
+              <li>Learn from real-world examples and success stories that provide actionable insights.</li>
               <li>
-                Gain actionable insights to improve your marketing strategies
+              Gain valuable insights to improve your marketing strategies.
               </li>
               <li>
-                Discover how other businesses have overcome challenges similar
-                to yours
+              Discover how other businesses have overcome challenges similar to yours.
               </li>
             </ul>
           </div>
@@ -381,9 +379,7 @@ const ContentPage = () => {
           </h2>
           <div className="bg-white rounded-lg shadow-md p-8" data-aos="fade-up">
             <p className="text-gray-600 mb-4">
-              Stay up-to-date with our latest insights, case studies, and
-              marketing tips. Subscribe to our newsletter and never miss an
-              update!
+            Stay in the loop with our latest insights, case studies, and marketing tips. Subscribe to our newsletter to never miss an update!
             </p>
             <form className="flex flex-col md:flex-row gap-4">
               <input

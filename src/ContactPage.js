@@ -184,8 +184,7 @@ const ContactPage = () => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            We're here to help! Feel free to reach out to us with any questions
-            or inquiries.
+            We're eager to assist you! Reach out with any questions or inquiries, and our dedicated team will respond promptly.
           </p>
         </div>
       </section>
@@ -197,15 +196,15 @@ const ContactPage = () => {
             {[
               {
                 icon: MapPin,
-                title: "Our Office",
+                title: "Visit Us",
                 content:
-                  "PVWW+CMF, Scheme No 55, Sheetal Nagar, Indore, Madhya Pradesh 452011",
+                  "Valuebound, 1st Floor, Platinum Plaza, Scheme No 55, Sheetal Nagar, Indore, Madhya Pradesh 452011",
               },
-              { icon: Phone, title: "Phone", content: "+91 9174811701" },
+              { icon: Phone, title: "Call Us", content: "+91 9174811701" },
               {
                 icon: Mail,
-                title: "Email",
-                content: "kushagra@valuebound.com",
+                title: "Email Us",
+                content: "hello@valuebound.com",
               },
             ].map((item, index) => (
               <div
@@ -235,8 +234,7 @@ const ContactPage = () => {
                   Let's Start a Conversation
                 </h2>
                 <p className="mb-6" data-aos="fade-right" data-aos-delay="100">
-                  Fill out the form and our team will get back to you within 24
-                  hours.
+                Fill out the form below, and our team will respond within 24 hours to assist you.
                 </p>
                 <div
                   className="flex items-center mb-4"
@@ -244,7 +242,7 @@ const ContactPage = () => {
                   data-aos-delay="200"
                 >
                   <MessageCircle className="w-6 h-6 mr-3" />
-                  <span>We're here to help!</span>
+                  <span>Your inquiries are important to us!</span>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 p-8">
@@ -286,7 +284,7 @@ const ContactPage = () => {
                       htmlFor="message"
                       className="block text-gray-700 font-semibold mb-2"
                     >
-                      Message
+                      Your Message
                     </label>
                     <textarea
                       id="message"
@@ -303,7 +301,7 @@ const ContactPage = () => {
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 rounded-md hover:opacity-90 transition duration-300"
                     data-aos="fade-up"
                   >
-                    Send Message
+                    Send Your Message
                   </button>
                 </form>
               </div>
