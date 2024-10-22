@@ -25,6 +25,7 @@ function App() {
         <Route path="/content" element={<ContentPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         <Route path="/blog/:id" element={<BlogPostPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/case-study/:id" element={<CaseStudyDetail />} />
         {/* Protected Route
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>

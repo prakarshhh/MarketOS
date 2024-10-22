@@ -11,7 +11,13 @@ const CaseStudyDetail = () => {
   const [error, setError] = useState(null);
 
   const DEFAULT_IMAGE =
-  "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
+    "http://higssoftware.com/images/format-of-the-case-study.png";
+
+  // Image error handler
+  const handleImageError = (e) => {
+    e.target.src = DEFAULT_IMAGE;
+    e.target.onerror = null; // Prevent infinite loop if default image also fails
+  };
 
   useEffect(() => {
     AOS.init({
@@ -22,7 +28,7 @@ const CaseStudyDetail = () => {
     const fetchCaseStudy = async () => {
       try {
         const response = await fetch(
-          `http://165.22.11.185:8000/content/${id}/`
+          `http://165.22.11.185:8000/content/id/${id}/`
         );
         if (!response.ok) {
           throw new Error("Case study not found");
@@ -90,6 +96,7 @@ const CaseStudyDetail = () => {
             src={caseStudy?.banner_image || DEFAULT_IMAGE}
             alt={caseStudy?.title}
             className="w-full h-96 object-cover"
+            onError={handleImageError}
           />
           <div className="p-8">
             <div className="flex flex-wrap gap-4 mb-4">

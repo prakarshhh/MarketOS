@@ -214,7 +214,7 @@ const CaseStudyPage = () => {
               >
                 <img
                   src={
-                    featuredCaseStudy.image || featuredCaseStudy.featured_image
+                    featuredCaseStudy.image || DEFAULT_IMAGE
                   }
                   alt={featuredCaseStudy.title}
                   className="w-full h-64 object-cover"
@@ -257,7 +257,7 @@ const CaseStudyPage = () => {
                   data-aos-delay={index * 100}
                 >
                   <img
-                    src={study.image || study.featured_image}
+                    src={study.image || DEFAULT_IMAGE}
                     alt={study.title}
                     className="w-full h-48 object-cover"
                     onError={handleImageError}

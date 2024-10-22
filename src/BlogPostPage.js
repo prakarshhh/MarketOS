@@ -21,7 +21,7 @@ const BlogPostPage = () => {
         setLoading(true);
         // Using the direct endpoint for a single blog post
         const response = await fetch(
-          `http://165.22.11.185:8000/content/${id}/`,
+          `http://165.22.11.185:8000/content/id/${id}/`,
           {
             method: "GET",
             headers: {
