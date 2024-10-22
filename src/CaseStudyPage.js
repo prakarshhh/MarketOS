@@ -22,7 +22,7 @@ const CaseStudyPage = () => {
   const [loading, setLoading] = useState(true);
 
   const DEFAULT_IMAGE =
-    "http://higssoftware.com/images/format-of-the-case-study.png";
+  "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
 
   // Image error handler function
   const handleImageError = (e) => {

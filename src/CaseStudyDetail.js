@@ -10,7 +10,8 @@ const CaseStudyDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const DEFAULT_IMAGE = "http://higssoftware.com/images/format-of-the-case-study.png";
+  const DEFAULT_IMAGE =
+  "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
 
   useEffect(() => {
     AOS.init({

@@ -8,7 +8,7 @@ const BlogPostPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const DEFAULT_IMAGE =
-    "https://www.shutterstock.com/shutterstock/photos/520314613/display_1500/stock-photo-blogging-blog-word-coder-coding-using-laptop-page-keyboard-notebook-blogger-internet-computer-520314613.jpg";
+    "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
 
   const handleImageError = (e) => {
     e.target.src = DEFAULT_IMAGE;
