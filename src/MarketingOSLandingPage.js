@@ -119,28 +119,33 @@ const MarketingOSLandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const steps = [
     {
-      title: "Attract Visitors",
+      title: "Attract & Engage",
       description:
-        "Capture the attention of your audience with beautifully designed content.",
+        "Capture your ideal audience with visually stunning, tailored content that resonates and sparks action, ensuring your marketing stands out.",
     },
     {
-      title: "Turn Visitors into Leads",
+      title: "Capture & Convert Leads",
       description:
-        "Engage with potential customers and turn interest into action.",
+        "Transform casual visitors into enthusiastic leads through integrated lead capture forms and compelling calls to action, making prospect conversion effortless.",
     },
     {
-      title: "Build Relationships",
+      title: "Nurture & Cultivate Relationships",
       description:
-        "Nurture leads with personalized communication and targeted content.",
+        "Build lasting connections with personalized messaging and targeted content, fostering a sense of value and understanding among your audience.",
     },
     {
-      title: "Convert Leads into Customers",
-      description: "Guide prospects through the buyer's journey with ease.",
+      title: "Guide Through the Buyer’s Journey",
+      description: "Navigate prospects smoothly through the conversion process by offering valuable resources and expert support, ensuring they receive the right content at the right time.",
     },
     {
-      title: "Track & Analyze Results",
+      title: "Analyze & Optimize Performance",
       description:
-        "Gain insights to refine your strategy and boost performance.",
+        "Utilize powerful analytics to refine your marketing strategy, monitor performance, and adapt your approach based on real-time data insights for continuous improvement.",
+    },
+    {
+      title: "Achieve Sustainable Growth",
+      description:
+        "Leverage AI-driven insights to streamline operations and enhance customer experiences, enabling smarter decision-making and focusing on strategies that drive long-term success and loyalty.",
     },
   ];
 
@@ -248,18 +253,17 @@ const MarketingOSLandingPage = () => {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2">
             <h1 className="text-6xl font-bold mb-6 animate-fade-in">
-              Transform the Way You Grow Your Business—Effortlessly.
+            Integrate. Automate. Dominate.
             </h1>
             <p className="text-2xl mb-10 max-w-2xl animate-fade-in">
-              Manage everything from customer engagement to performance
-              tracking— without the complexity.
+            At MarketingOS, we believe in empowering businesses with the tools they need to thrive in a competitive digital landscape. Our all-in-one marketing automation platform seamlessly integrates cutting-edge technologies to elevate your marketing efforts and drive results.
             </p>
             <div className="flex space-x-6">
               <button className="bg-white text-blue-500 px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:bg-blue-100 transition duration-300 transform hover:-translate-y-1 hover:scale-105">
-                Start Your Free Trial
+              Book a Demo
               </button>
               <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:bg-white hover:text-blue-500 transition duration-300 transform hover:-translate-y-1 hover:scale-105">
-                Learn More About Our Platform
+                Learn More .....
               </button>
             </div>
           </div>
@@ -280,34 +284,34 @@ const MarketingOSLandingPage = () => {
             className="text-3xl font-bold text-center mb-12"
             data-aos="fade-up"
           >
-            Simplify Your Workflow. Maximize Your Impact.
+            Streamline Your Workflow. Amplify Your Impact.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Zap,
-                title: "Boost Efficiency",
+                title: "Comprehensive Content Management",
                 description:
-                  "Automate repetitive tasks and focus on what matters most—growing your business.",
+                  "Harness the power of Wagtail, a robust CMS that allows you to create, manage, and distribute engaging content effortlessly. Our intuitive interface ensures your team can focus on crafting captivating stories that resonate with your audience.",
               },
               {
                 icon: Users,
-                title: "Engage More Customers",
+                title: "Advanced Analytics for Informed Decisions",
                 description:
-                  "Build strong relationships with personalized, targeted outreach.",
+                  "With integrated PostHog analytics, gain actionable insights into user behavior and campaign performance. Understand what drives your audience, optimize your strategies, and maximize your ROI with data-backed decisions.",
               },
               {
                 icon: BarChart,
-                title: "Track What Works",
+                title: "Data-Driven Email Marketing",
                 description:
-                  "Gain insights from every customer interaction to improve your strategy.",
+                  "Engage your customers with personalized email campaigns powered by Mautic. Utilize automated workflows to nurture leads and deliver the right message at the right time, ensuring higher conversion rates and stronger customer relationships.",
               },
               {
                 icon: Activity,
-                title: "All-in-One Solution",
+                title: "AI-Powered Insights",
                 description:
-                  "Access everything you need in one intuitive platform.",
+                  "Our platform leverages artificial intelligence for lead scoring and content personalization. Anticipate customer needs, enhance engagement, and stay ahead of the curve in a constantly evolving market.",
               },
             ].map((item, index) => (
               <div
@@ -336,7 +340,7 @@ const MarketingOSLandingPage = () => {
             className="text-3xl font-bold text-center mb-12"
             data-aos="fade-up"
           >
-            From First Contact to Loyal Customer, We've Got You Covered.
+            Elevate Every Stage of Your Customer Journey with MarketingOS
           </h2>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -370,7 +374,7 @@ const MarketingOSLandingPage = () => {
             className="text-3xl font-bold text-center mb-12"
             data-aos="fade-up"
           >
-            One Platform for Everything You Need
+           One Comprehensive Platform for All Your Marketing Needs
           </h2>
 
           <div
@@ -381,7 +385,7 @@ const MarketingOSLandingPage = () => {
               className="text-2xl font-semibold mb-4 text-gray-800"
               data-aos="fade-right"
             >
-              Too many tools? No clear picture of your performance?
+              Feeling Overwhelmed by Multiple Platforms? Lacking Clarity in Your Marketing Metrics?
             </h3>
 
             <p
@@ -400,16 +404,28 @@ const MarketingOSLandingPage = () => {
             >
               {[
                 {
-                  title: "Overall Performance",
-                  description: "Track key metrics at a glance",
+                  title: "Streamline Your Marketing Efforts",
+                  description: "Unify your tools for focused strategies.",
                 },
                 {
-                  title: "Customer Interactions",
-                  description: "Monitor engagement and conversions",
+                  title: "Holistic Performance Tracking",
+                  description: "Monitor key metrics in real time.",
                 },
                 {
-                  title: "Simplified Reporting",
-                  description: "Get insights with clean, modern UI",
+                  title: "Enhanced Customer Insights",
+                  description: "Understand behavior for better engagement.",
+                },
+                {
+                  title: "User-Friendly Dashboards",
+                  description: "Interpret data easily with intuitive design.",
+                },
+                {
+                  title: "Seamless Integration",
+                  description: "Connect effortlessly with existing systems.",
+                },
+                {
+                  title: "Start Your Journey Today",
+                  description: "Try MarketingOS and transform your marketing.",
                 },
               ].map((item, index) => (
                 <div
@@ -444,7 +460,7 @@ const MarketingOSLandingPage = () => {
             className="text-3xl font-bold text-center mb-12"
             data-aos="fade-up"
           >
-            See What Our Users Are Saying
+            What Our Customers Say
           </h2>
 
           <div
@@ -454,12 +470,12 @@ const MarketingOSLandingPage = () => {
           >
             {[
               {
-                text: `"Our marketing is 3x more efficient since switching to MarketingOS. We've never been more organized."`,
-                author: "Sarah J., Marketing Director",
+                text: `“MarketingOS has transformed our marketing strategy! The seamless integration has saved us countless hours.”`,
+                author: "Ambuj Mishra, Fixkar Group ",
               },
               {
-                text: `"We saved 20 hours a week managing our customer outreach."`,
-                author: "Mike T., Small Business Owner",
+                text: `“The AI insights provided by MarketingOS have allowed us to tailor our campaigns more effectively.”`,
+                author: "Yuvraj Thakur, Thakur & Sons Limited",
               },
             ].map((testimonial, index) => (
               <div
@@ -484,7 +500,7 @@ const MarketingOSLandingPage = () => {
             data-aos-delay="200"
           >
             <h3 className="text-2xl font-bold mb-4 text-gray-800">
-              Case Study: Amazing Results
+            Success Stories
             </h3>
 
             <p
@@ -492,8 +508,7 @@ const MarketingOSLandingPage = () => {
               data-aos="fade-right"
               data-aos-delay="300"
             >
-              Many companies increased lead conversions by 40% within 6 months
-              of using MarketingOS.
+              With MarketingOS, Fixkar Group  achieved a 50% reduction in marketing costs while increasing customer retention by 25%.
             </p>
 
             <a
