@@ -1,17 +1,14 @@
 import logo from "./logo.svg";
 import "./App.css";
 import AboutUsPage from "./AboutUsPage";
-import CaseStudyDetail from './CaseStudyDetail';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MarketingOSLandingPage from "./MarketingOSLandingPage";
 import Blog from "./BlogPage";
 import ContactPage from "./ContactPage";
 import AdminLoginPage from "./AdminLoginPage";
-import ProtectedRoute from "./ProtectedRoute";
 import CaseStudyPage from "./CaseStudyPage";
 import ContentPage from "./contentPage";
 import PrivacyPolicyPage from "./privacyPolicy";
-import BlogPostPage from './BlogPostPage';
 import posthog from "posthog-js";
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -40,7 +37,7 @@ const storePostHogUserData = (email) => {
 
     localStorage.setItem("posthog_user", JSON.stringify(userData));
     sessionStorage.setItem("posthog_user", JSON.stringify(userData));
-    console.log("PostHog user data stored:", userData);
+    console.log(PostHog user data stored:, userData);
   } else {
     console.error("No PostHog distinct ID found for this session.");
   }
@@ -50,7 +47,7 @@ const storePostHogUserData = (email) => {
 const trackCustomEvent = (eventName, properties = {}) => {
   if (posthog) {
     posthog.capture(eventName, properties);
-    console.log(`Captured event: ${eventName}, properties:`, properties);
+    console.log(Captured event: ${eventName}, properties);
   } else {
     console.error("PostHog is not initialized, unable to capture event.");
   }
@@ -59,14 +56,14 @@ const trackCustomEvent = (eventName, properties = {}) => {
 // Function to log user distinct IDs and email
 const logUserInfo = (email) => {
   const distinctId = posthog.get_distinct_id();
-  console.log(`User Info: Email: ${email || "Anonymous"}, Distinct ID: ${distinctId}`);
+  console.log(User Info: Email: ${email || "Anonymous"}, Distinct ID: ${distinctId});
 };
 
 // Function to track session duration
 const trackSessionDuration = (start) => {
   const duration = Math.floor((Date.now() - start) / 1000); // Duration in seconds
   trackCustomEvent("session_duration", { duration });
-  console.log(`Session duration tracked: ${duration} seconds`);
+  console.log(Session duration tracked: ${duration} seconds);
 };
 
 function Layout({ children }) {
@@ -89,9 +86,9 @@ function Layout({ children }) {
         }
         ce('https://sc.lfeeder.com/lftracker_v1_' + ss + (ex ? '_' + ex : '') + '.js');
       })(document, 'script');
-    })(process.env.REACT_APP_LEAD_FEEDER_ID);
+    })('ywVkO4XqqMdaZ6Bj');
 
-    const trackedPaths = ["/", "/blog", "/aboutus", "/contact", "/CaseStudyPage", "/content", "/privacyPolicy"];
+    const trackedPaths = ["/","/blog","/aboutus","/contact","/CaseStudyPage","/content","/privacyPolicy"];
 
     if (trackedPaths.includes(location.pathname)) {
       const params = new URLSearchParams(location.search);
@@ -132,22 +129,18 @@ function Layout({ children }) {
 function App() {
   return (
     <Router basename="/MarketOS">
-      <Routes>
-        <Route path="/" element={<MarketingOSLandingPage />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/aboutus" element={<AboutUsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<AdminLoginPage />} />
-        <Route path="/CaseStudyPage" element={<CaseStudyPage />} />
-        <Route path="/content" element={<ContentPage />} />
-        <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="/blog/:id" element={<BlogPostPage />} />
-        <Route path="/case-study/:id" element={<CaseStudyDetail />} />
-        {/* Protected Route
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route> */}
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<MarketingOSLandingPage />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<AdminLoginPage />} />
+          <Route path="/CaseStudyPage" element={<CaseStudyPage />} />
+          <Route path="/content" element={<ContentPage />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
