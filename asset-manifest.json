@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/MarketOS/static/css/main.61425a2e.css",
-    "main.js": "/MarketOS/static/js/main.6eee1795.js",
+    "main.css": "/MarketOS/static/css/main.1a958511.css",
+    "main.js": "/MarketOS/static/js/main.f449bd6c.js",
     "static/js/453.815728ae.chunk.js": "/MarketOS/static/js/453.815728ae.chunk.js",
     "static/media/logo.svg": "/MarketOS/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/MarketOS/index.html",
-    "main.61425a2e.css.map": "/MarketOS/static/css/main.61425a2e.css.map",
-    "main.6eee1795.js.map": "/MarketOS/static/js/main.6eee1795.js.map",
+    "main.1a958511.css.map": "/MarketOS/static/css/main.1a958511.css.map",
+    "main.f449bd6c.js.map": "/MarketOS/static/js/main.f449bd6c.js.map",
     "453.815728ae.chunk.js.map": "/MarketOS/static/js/453.815728ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.61425a2e.css",
-    "static/js/main.6eee1795.js"
+    "static/css/main.1a958511.css",
+    "static/js/main.f449bd6c.js"
   ]
 }
