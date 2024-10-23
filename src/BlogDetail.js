@@ -17,8 +17,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-const CaseStudyDetail = () => {
-  const [caseStudy, setCaseStudy] = useState(null);
+const BlogDetail = () => {
+  const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +27,7 @@ const CaseStudyDetail = () => {
   const { slug } = useParams();
 
   const DEFAULT_IMAGE =
-    "http://higssoftware.com/images/format-of-the-case-study.png";
+    "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
   const createSlug = (title) => {
     if (!title) return "";
     return title
@@ -49,21 +49,21 @@ const CaseStudyDetail = () => {
       once: false,
     });
 
-    const fetchCaseStudy = async () => {
+    const fetchblog = async () => {
       try {
         console.log("Current slug from URL:", slug);
 
-        // First fetch all case studies
+        // First fetch all Blog
         const response = await fetch(
-          "http://165.22.11.185:8000/content/list?content_type=Case Study"
+          "http://165.22.11.185:8000/content/list?content_type=Blog"
         );
 
         if (!response.ok) {
-          throw new Error("Failed to fetch case studies");
+          throw new Error("Failed to fetch blog");
         }
 
         const data = await response.json();
-        console.log("All case studies:", data);
+        console.log("All blogs:", data);
         const studySlugs = data.results.map((study) => ({
           originalTitle: study.title,
           generatedSlug: createSlug(study.title),
@@ -93,7 +93,7 @@ const CaseStudyDetail = () => {
         }
 
         const detailData = await detailResponse.json();
-        setCaseStudy(detailData);
+        setBlog(detailData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -101,7 +101,7 @@ const CaseStudyDetail = () => {
       }
     };
 
-    fetchCaseStudy();
+    fetchblog();
   }, [slug]);
 
   if (loading) {
@@ -125,7 +125,7 @@ const CaseStudyDetail = () => {
             <div className="text-left bg-gray-200 p-4 rounded mb-4 max-w-xl mx-auto">
               <h3 className="font-bold mb-2">Debug Information:</h3>
               <p>Current URL slug: {debugInfo.currentSlug}</p>
-              <p className="mb-2">Available case studies:</p>
+              <p className="mb-2">Available blogs:</p>
               <ul className="list-disc pl-5">
                 {debugInfo.availableSlugs.map((study, index) => (
                   <li key={index} className="mb-1">
@@ -140,11 +140,11 @@ const CaseStudyDetail = () => {
             </div>
           )}
           <Link
-            to="/CaseStudyPage"
+            to="/blogPage"
             className="inline-flex items-center text-blue-500 hover:text-blue-600"
           >
             <ArrowLeft className="mr-2" size={20} />
-            Back to Case Studies
+            Back to Blogs
           </Link>
         </div>
       </div>
@@ -213,7 +213,7 @@ const CaseStudyDetail = () => {
                 Home
               </Link>
               <Link
-                to="/casestudy"
+                to="/blog"
                 className="block py-2 text-gray-700 hover:text-blue-500"
               >
                 Case Study
@@ -231,12 +231,12 @@ const CaseStudyDetail = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Back button */}
         <Link
-          to="/CaseStudyPage"
+          to="/blogPage"
           className="inline-flex items-center text-blue-500 hover:text-blue-600 mb-8 transition-colors duration-300"
           data-aos="fade-right"
         >
           <ArrowLeft className="mr-2" size={20} />
-          Back to Case Studies
+          Back to Blogs
         </Link>
 
         {/* Hero Section */}
@@ -245,32 +245,32 @@ const CaseStudyDetail = () => {
           data-aos="fade-up"
         >
           <img
-            src={caseStudy?.banner_image || DEFAULT_IMAGE}
-            alt={caseStudy?.title}
+            src={blog?.banner_image || DEFAULT_IMAGE}
+            alt={blog?.title}
             className="w-full h-96 object-cover"
             onError={handleImageError}
           />
           <div className="p-8">
             <div className="flex flex-wrap gap-4 mb-4">
-              {caseStudy?.content_type && (
+              {blog?.content_type && (
                 <span className="inline-flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                  {caseStudy.content_type.name}
+                  {blog.content_type.name}
                 </span>
               )}
-              {caseStudy?.created_at && (
+              {blog?.created_at && (
                 <span className="inline-flex items-center bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
                   <Calendar size={16} className="mr-2" />
-                  {new Date(caseStudy.created_at).toLocaleDateString()}
+                  {new Date(blog.created_at).toLocaleDateString()}
                 </span>
               )}
-              {caseStudy?.author_name && (
+              {blog?.author_name && (
                 <span className="inline-flex items-center bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
                   <User size={16} className="mr-2" />
-                  {caseStudy.author_name}
+                  {blog.author_name}
                 </span>
               )}
             </div>
-            <h1 className="text-4xl font-bold mb-6">{caseStudy?.title}</h1>
+            <h1 className="text-4xl font-bold mb-6">{blog?.title}</h1>
           </div>
         </div>
 
@@ -280,9 +280,9 @@ const CaseStudyDetail = () => {
           data-aos="fade-up"
         >
           <div className="prose max-w-none">
-            {caseStudy?.content_body && (
+            {blog?.content_body && (
               <div className="whitespace-pre-wrap">
-                {caseStudy.content_body
+                {blog.content_body
                   .split("\r\n")
                   .map((paragraph, index) => (
                     <p key={index} className="mb-4">
@@ -296,17 +296,17 @@ const CaseStudyDetail = () => {
           {/* Metadata Section */}
           <div className="mt-8 pt-8 border-t border-gray-200">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {caseStudy?.meta_description && (
+              {blog?.meta_description && (
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Description</h3>
-                  <p className="text-gray-600">{caseStudy.meta_description}</p>
+                  <p className="text-gray-600">{blog.meta_description}</p>
                 </div>
               )}
-              {caseStudy?.meta_keywords && (
+              {blog?.meta_keywords && (
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Keywords</h3>
                   <div className="flex flex-wrap gap-2">
-                    {caseStudy.meta_keywords
+                    {blog.meta_keywords
                       .split(",")
                       .map((keyword, index) => (
                         <span
@@ -382,4 +382,4 @@ const CaseStudyDetail = () => {
   );
 };
 
-export default CaseStudyDetail;
+export default BlogDetail;

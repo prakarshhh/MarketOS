@@ -167,11 +167,10 @@ import ProtectedRoute from "./ProtectedRoute";
 import CaseStudyPage from "./CaseStudyPage";
 import ContentPage from "./contentPage";
 import PrivacyPolicyPage from "./privacyPolicy";
-import BlogPostPage from './BlogPostPage';
+import BlogPostPage from './BlogDetail';
 import posthog from "posthog-js";
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-
 // Initialize PostHog
 console.log("PostHog API Key:", process.env.REACT_APP_POSTHOG_API_KEY); // Debugging log
 
@@ -303,9 +302,11 @@ function App() {
         <Route path="/CaseStudyPage" element={<CaseStudyPage />} />
         <Route path="/content" element={<ContentPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="/blog/:id" element={<BlogPostPage />} />
+        {/* <Route path="/blog" element={<BlogPostPage />} /> */}
         <Route path="/blog/:slug" element={<BlogPostPage />} />
-        <Route path="/case-study/:id" element={<CaseStudyDetail />} />
+        {/* <Route path="/CaseStudyPage/:id" element={<CaseStudyDetail />} /> */}
+        <Route path="/CaseStudyPage/:slug" element={<CaseStudyDetail />} />
+
         {/* Protected Route
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard" element={<Dashboard />} />

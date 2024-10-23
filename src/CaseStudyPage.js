@@ -20,9 +20,17 @@ const CaseStudyPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [caseStudies, setCaseStudies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const createSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+      .trim(); // Trim hyphens from start and end
+  };
 
   const DEFAULT_IMAGE =
-  "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
+    "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
 
   // Image error handler function
   const handleImageError = (e) => {
@@ -213,9 +221,7 @@ const CaseStudyPage = () => {
                 data-aos="fade-up"
               >
                 <img
-                  src={
-                    featuredCaseStudy.image || DEFAULT_IMAGE
-                  }
+                  src={featuredCaseStudy.image || DEFAULT_IMAGE}
                   alt={featuredCaseStudy.title}
                   className="w-full h-64 object-cover"
                   onError={handleImageError}
@@ -231,7 +237,7 @@ const CaseStudyPage = () => {
                     {featuredCaseStudy.excerpt || featuredCaseStudy.description}
                   </p>
                   <Link
-                    to={`/case-study/${featuredCaseStudy.id}`}
+                    to={`/CaseStudyPage/${createSlug(featuredCaseStudy.title)}`}
                     className="text-blue-600 font-semibold flex items-center group"
                   >
                     Read Full Case Study{" "}
@@ -243,7 +249,6 @@ const CaseStudyPage = () => {
                 </div>
               </div>
             )}
-
             {/* Case Studies Grid */}
             <h2 className="text-2xl font-bold mb-6" data-aos="fade-up">
               More Success Stories
@@ -273,10 +278,10 @@ const CaseStudyPage = () => {
                       {study.excerpt || study.description}
                     </p>
                     <Link
-                      to={`/case-study/${study.id}`}
+                      to={`/CaseStudyPage/${createSlug(study.title)}`}
                       className="text-blue-600 font-semibold flex items-center group"
                     >
-                      Read Case Study{" "}
+                      Read Case Study
                       <ArrowRight
                         className="ml-2 transition-transform duration-300 group-hover:translate-x-2"
                         size={16}
