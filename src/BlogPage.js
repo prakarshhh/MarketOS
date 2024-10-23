@@ -2,39 +2,41 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
+
 import {
   FaFacebookF,
   FaTwitter,
   FaLinkedinIn,
   FaInstagram,
+  FaTrendingUp,
+  FaDollarSign,
+  FaClock,
 } from "react-icons/fa";
-import {
-  ArrowRight,
-  Search,
-  Menu,
-  X,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+
+import { ArrowRight, ChevronRight, Menu, X, Users } from "lucide-react";
 
 const BlogPage = () => {
-  const DEFAULT_IMAGE = "https://www.shutterstock.com/shutterstock/photos/520314613/display_1500/stock-photo-blogging-blog-word-coder-coding-using-laptop-page-keyboard-notebook-blogger-internet-computer-520314613.jpg";
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    section?.scrollIntoView({ behavior: "smooth" });
-  };
-  const [searchTerm, setSearchTerm] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setblogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    totalPages: 1,
-    totalCount: 0,
-    limit: 10,
-  });
+  const createSlug = (title)  => {
+    return title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+      .trim(); // Trim hyphens from start and end
+  };
+
+  const DEFAULT_IMAGE =
+    "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
+
+  // Image error handler function
+  const handleImageError = (e) => {
+    e.target.src = DEFAULT_IMAGE;
+    e.target.onerror = null; // Prevents infinite loop if default image also fails
+  };
 
   useEffect(() => {
     AOS.init({
@@ -42,104 +44,79 @@ const BlogPage = () => {
       once: false,
     });
 
-    fetchBlogs(1);
-
-    // Add scroll listener
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 10);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const fetchBlogs = async (page = 1) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `http://165.22.11.185:8000/content/list?page=${page}&content_type=Blog`
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch(
+          "http://165.22.11.185:8000/content/list?content_type=Blog"
+        );
+        const data = await response.json();
+        setblogs(data.results);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching case studies:", error);
+        setLoading(false);
       }
+    };
 
-      const data = await response.json();
-      setPagination({
-        currentPage: data.page,
-        totalPages: data.total_pages,
-        totalCount: data.total_count,
-        limit: data.limit,
-      });
+    fetchBlogs();
+  }, []);
 
-      if (Array.isArray(data.results)) {
-        setBlogs(data.results);
-        setError(null);
-      } else {
-        throw new Error("Invalid data format");
-      }
-    } catch (err) {
-      console.error("Error fetching blogs:", err);
-      setError(err.message);
-      setBlogs([]);
-    } finally {
-      setLoading(false);
-    }
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const getFilteredBlogs = () => {
-    if (!Array.isArray(blogs)) return [];
-    if (!searchTerm) return blogs;
-
-    return blogs.filter(
-      (blog) =>
-        blog?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        blog?.content_body?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  const featuredBlogs = blogs[0] || {
+    title: "Loading...",
+    excerpt: "Loading...",
+    image: DEFAULT_IMAGE,
+    industry: "Loading...",
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= pagination.totalPages) {
-      fetchBlogs(newPage);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
+  const industries = [
+    "SaaS",
+    "E-commerce",
+    "Financial Services",
+    "Education Technology",
+    "Food & Beverage",
+    "Healthcare Technology",
+    "Manufacturing",
+    "Real Estate",
+    "Travel & Hospitality",
+  ];
 
-  const PaginationControls = () => (
-    <div className="flex items-center justify-center space-x-4 mt-8">
-      <button
-        onClick={() => handlePageChange(pagination.currentPage - 1)}
-        disabled={pagination.currentPage === 1}
-        className={`flex items-center px-4 py-2 rounded-md transition-colors ${
-          pagination.currentPage === 1
-            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-            : "bg-blue-50 text-blue-600 hover:bg-blue-100"
-        }`}
-      >
-        <ChevronLeft size={20} className="mr-2" />
-        Previous
-      </button>
-
-      <span className="text-gray-600">
-        Page {pagination.currentPage} of {pagination.totalPages}
-      </span>
-
-      <button
-        onClick={() => handlePageChange(pagination.currentPage + 1)}
-        disabled={pagination.currentPage === pagination.totalPages}
-        className={`flex items-center px-4 py-2 rounded-md transition-colors ${
-          pagination.currentPage === pagination.totalPages
-            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-            : "bg-blue-50 text-blue-600 hover:bg-blue-100"
-        }`}
-      >
-        Next
-        <ChevronRight size={20} className="ml-2" />
-      </button>
-    </div>
-  );
-
-  const filteredBlogs = getFilteredBlogs();
-  const featuredPost = filteredBlogs.length > 0 ? filteredBlogs[0] : null;
+  const testimonials = [
+    {
+      quote:
+        "MarketingOS transformed our marketing strategy. We've seen unprecedented growth in lead generation and conversion rates.",
+      author: "Sarah Johnson",
+      position: "CMO, TechGrow",
+      company: "TechGrow",
+    },
+    {
+      quote:
+        "The automation capabilities of MarketingOS have saved us countless hours and significantly improved our campaign effectiveness.",
+      author: "Michael Chen",
+      position: "Marketing Director, RetailMaster",
+      company: "RetailMaster",
+    },
+    {
+      quote:
+        "With MarketingOS, we've been able to create highly personalized campaigns that resonate with our audience. The results speak for themselves.",
+      author: "Emily Rodriguez",
+      position: "Head of Digital Marketing, FinServe",
+      company: "FinServe",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -151,244 +128,282 @@ const BlogPage = () => {
       >
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
-            <Link to="/" className="text-2xl font-bold text-blue-500">
+            <h2
+              className="text-2xl font-bold text-blue-500 cursor-pointer"
+              onClick={() => scrollToSection("hero")}
+            >
               MarketingOS
-            </Link>
+            </h2>
 
+            {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-500 hover:text-blue-500 focus:outline-none"
+                className="text-gray-500 hover:text-blue-500 focus:outline-none focus:text-blue-500"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
 
+            {/* Desktop menu */}
             <div className="hidden md:flex items-center space-x-6">
-              <Link to="/aboutus" className="text-gray-700 hover:text-blue-500">
-                About Us
-              </Link>
-              <Link to="/contact" className="text-gray-700 hover:text-blue-500">
-                Contact
-              </Link>
-              <Link to="/" className="text-gray-700 hover:text-blue-500">
-                Home
-              </Link>
-              <Link
-                to="/content"
-                className="text-gray-700 hover:text-blue-500"
-              >
-                Contents
-              </Link>
-              <Link to="/login" className="text-gray-700 hover:text-blue-500">
-                Login
-              </Link>
+              <ul className="flex space-x-6">
+                {["About Us", "Contact"].map((item, index) => (
+                  <li
+                    key={index}
+                    className="cursor-pointer text-gray-700 hover:text-blue-500 transition"
+                  >
+                    <Link to={`/${item.toLowerCase().replace(/\s+/g, "")}`}>
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+                <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
+                  <Link to="/">Home</Link>
+                </li>
+                <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
+                  <Link to="http://172.105.47.241:3000/Login">Login</Link>
+                </li>
+                <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
+                  <Link to="/content">Contents</Link>
+                </li>
+              </ul>
             </div>
           </div>
 
+          {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4">
-              <Link
-                to="/aboutus"
-                className="block py-2 text-gray-700 hover:text-blue-500"
-              >
-                About Us
-              </Link>
-              <Link
-                to="/contact"
-                className="block py-2 text-gray-700 hover:text-blue-500"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/"
-                className="block py-2 text-gray-700 hover:text-blue-500"
-              >
-                Home
-              </Link>
-              <Link
-                to="/casestudy"
-                className="block py-2 text-gray-700 hover:text-blue-500"
-              >
-                Case Study
-              </Link>
-              <Link
-                to="/login"
-                className="block py-2 text-gray-700 hover:text-blue-500"
-              >
-                Login
-              </Link>
+            <div className="md:hidden mt-4">
+              <ul className="flex flex-col space-y-4">
+                {["Features", "Pricing", "About Us", "Contact"].map(
+                  (item, index) => (
+                    <li
+                      key={index}
+                      className="cursor-pointer text-gray-700 hover:text-blue-500 transition"
+                    >
+                      <a
+                        onClick={() => {
+                          scrollToSection(
+                            item.toLowerCase().replace(/\s+/g, "")
+                          );
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  )
+                )}
+              </ul>
             </div>
           )}
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 pt-24 pb-8">
+      <main className="container mx-auto px-4 pt-20 pb-8">
         <h2 className="text-3xl font-bold mb-8" data-aos="fade-up">
-          Latest Articles
+          MarketingOS Blogs
         </h2>
 
-        {/* Search Bar */}
-        <div className="mb-8 relative" data-aos="fade-up">
-          <input
-            type="text"
-            placeholder="Search blogs..."
-            className="w-full p-3 pr-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <Search className="absolute right-3 top-3 text-gray-400" />
-        </div>
-
+        {/* Loading State */}
         {loading ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-          </div>
-        ) : error ? (
-          <div className="bg-red-50 border border-red-200 rounded-md p-6 text-center">
-            <p className="text-red-600 mb-4">{error}</p>
-            <button
-              onClick={() => fetchBlogs(pagination.currentPage)}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-            >
-              Retry Loading Blogs
-            </button>
-          </div>
-        ) : filteredBlogs.length === 0 ? (
-          <div className="text-center py-8 bg-gray-50 rounded-md">
-            <p className="text-gray-600">
-              {searchTerm
-                ? "No blogs found matching your search."
-                : "No blogs available."}
-            </p>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading case studies...</p>
           </div>
         ) : (
           <>
-            {/* Featured Post */}
-            {featuredPost && !searchTerm && (
+            {/* Featured Blogs */}
+            {featuredBlogs && (
               <div
-                className="bg-white rounded-lg shadow-md overflow-hidden mb-8"
+                className="bg-white rounded-lg shadow-md overflow-hidden mb-8 transform transition duration-300 hover:scale-105"
                 data-aos="fade-up"
               >
-                <div className="relative w-full h-64">
-                  <img
-                    src={featuredPost.banner_image || DEFAULT_IMAGE}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <img
+                  src={featuredBlogs.image || DEFAULT_IMAGE}
+                  alt={featuredBlogs.title}
+                  className="w-full h-64 object-cover"
+                  onError={handleImageError}
+                />
                 <div className="p-6">
                   <span className="text-blue-600 font-semibold">
-                    {featuredPost.content_type.name}
+                    {featuredBlogs.industry || "Featured Blogs"}
                   </span>
                   <h3 className="text-2xl font-bold mt-2 mb-4">
-                    {featuredPost.title}
+                    {featuredBlogs.title}
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    {featuredPost.content_body?.substring(0, 200)}...
+                    {featuredBlogs.excerpt || featuredBlogs.description}
                   </p>
                   <Link
-                    to={`/blog/${featuredPost.id}`}
+                    to={`/blog/${createSlug(featuredBlogs.title)}`}
                     className="text-blue-600 font-semibold flex items-center group"
                   >
-                    Read More
-                    <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+                    Read Full Blog{" "}
+                    <ArrowRight
+                      className="ml-2 transition-transform duration-300 group-hover:translate-x-2"
+                      size={16}
+                    />
                   </Link>
                 </div>
               </div>
             )}
-
-            {/* Blog Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(searchTerm ? filteredBlogs : filteredBlogs.slice(1)).map(
-                (blog, index) => (
-                  <div
-                    key={blog.id}
-                    className="bg-white rounded-lg shadow-md overflow-hidden"
-                    data-aos="fade-up"
-                    data-aos-delay={index * 100}
-                  >
-                    <div className="relative w-full h-48">
-                      <img
-                        src={blog.banner_image || DEFAULT_IMAGE}
-                        alt={blog.title}
-                        className="w-full h-full object-cover"
+            {/* Case Studies Grid */}
+            <h2 className="text-2xl font-bold mb-6" data-aos="fade-up">
+              More Success Stories
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+              {blogs.slice(1).map((study, index) => (
+                <div
+                  key={study.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <img
+                    src={study.image || DEFAULT_IMAGE}
+                    alt={study.title}
+                    className="w-full h-48 object-cover"
+                    onError={handleImageError}
+                  />
+                  <div className="p-6">
+                    <span className="text-blue-600 font-semibold">
+                      {study.industry || "Blog"}
+                    </span>
+                    <h3 className="text-xl font-bold mt-2 mb-4">
+                      {study.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      {study.excerpt || study.description}
+                    </p>
+                    <Link
+                      to={`/blog/${createSlug(study.title)}`}
+                      className="text-blue-600 font-semibold flex items-center group"
+                    >
+                      Read Blog
+                      <ArrowRight
+                        className="ml-2 transition-transform duration-300 group-hover:translate-x-2"
+                        size={16}
                       />
-                    </div>
-                    <div className="p-6">
-                      <span className="text-blue-600 font-semibold">
-                        {blog.content_type.name}
-                      </span>
-                      <h3 className="text-xl font-bold mt-2 mb-4">
-                        {blog.title}
-                      </h3>
-                      <p className="text-gray-600 mb-4">
-                        {blog.content_body?.substring(0, 150)}...
-                      </p>
-                      <Link
-                        to={`/blog/${blog.id}`}
-                        className="text-blue-600 font-semibold flex items-center group"
-                      >
-                        Read More
-                        <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
-                      </Link>
-                    </div>
+                    </Link>
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
-
-            {/* Pagination */}
-            {!searchTerm && <PaginationControls />}
           </>
         )}
+
+        {/* Testimonials Section */}
+        <h2 className="text-2xl font-bold mb-6" data-aos="fade-up">
+          What Our Clients Say
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-md p-6"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <blockquote className="text-gray-600 italic mb-4">
+                "{testimonial.quote}"
+              </blockquote>
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                <div>
+                  <p className="font-semibold">{testimonial.author}</p>
+                  <p className="text-sm text-gray-500">
+                    {testimonial.position}, {testimonial.company}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Industries Section */}
+        <div
+          className="bg-white rounded-lg shadow-md p-6 mb-8"
+          data-aos="fade-up"
+        >
+          <h3 className="text-xl font-bold mb-4">Industries We've Helped</h3>
+          <div className="flex flex-wrap gap-2">
+            {industries.map((industry, index) => (
+              <span
+                key={index}
+                className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300"
+                data-aos="fade-up"
+                data-aos-delay={index * 50}
+              >
+                {industry}
+              </span>
+            ))}
+          </div>
+        </div>
       </main>
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
+          <div className="flex flex-wrap justify-between">
+            <div className="w-full md:w-1/3 mb-8 md:mb-0">
               <h3 className="text-2xl font-bold mb-4">MarketingOS</h3>
               <p className="text-gray-400">
                 Simplifying marketing for businesses everywhere.
               </p>
             </div>
-            <div>
+            <div className="w-full md:w-1/3 mb-8 md:mb-0">
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                <li>
-                  <Link to="/aboutus" className="hover:text-blue-300">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="hover:text-blue-300">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/privacy" className="hover:text-blue-300">
-                    Privacy Policy
-                  </Link>
-                </li>
+                {["About Us", "Contact", "Privacy Policy"].map(
+                  (link, index) => {
+                    const routes = {
+                      "About Us": "/aboutus",
+                      Contact: "/contact",
+                      "Privacy Policy": "/privacyPolicy",
+                    };
+
+                    return (
+                      <li key={index}>
+                        <Link
+                          to={routes[link]}
+                          className="hover:text-blue-300 transition duration-300"
+                        >
+                          {link}
+                        </Link>
+                      </li>
+                    );
+                  }
+                )}
               </ul>
             </div>
-            <div>
+            <div className="w-full md:w-1/3">
               <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="hover:text-blue-300">
-                  <FaFacebookF size={20} />
+                <a
+                  href="#"
+                  className="transition duration-300 hover:text-blue-400"
+                >
+                  <FaFacebookF className="w-6 h-6" />
                 </a>
-                <a href="#" className="hover:text-blue-300">
-                  <FaTwitter size={20} />
+                <a
+                  href="#"
+                  className="transition duration-300 hover:text-blue-400"
+                >
+                  <FaTwitter className="w-6 h-6" />
                 </a>
-                <a href="#" className="hover:text-blue-300">
-                  <FaLinkedinIn size={20} />
+                <a
+                  href="#"
+                  className="transition duration-300 hover:text-blue-400"
+                >
+                  <FaLinkedinIn className="w-6 h-6" />
                 </a>
-                <a href="#" className="hover:text-blue-300">
-                  <FaInstagram size={20} />
+                <a
+                  href="#"
+                  className="transition duration-300 hover:text-blue-400"
+                >
+                  <FaInstagram className="w-6 h-6" />
                 </a>
               </div>
             </div>

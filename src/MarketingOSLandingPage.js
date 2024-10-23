@@ -93,7 +93,7 @@ const MarketingOSLandingPage = () => {
       formData.append("mauticform[formName]", "newslettersubscription");
 
       const response = await fetch(
-        "http://165.22.11.185:8081/form/submit?formId=2",
+        `http://localhost:8080/http://165.22.11.185:8081/form/submit?formId=2`,
         {
           method: "POST",
           body: formData,
