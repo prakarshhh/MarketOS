@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { slugify } from './utils/slugify'; // Ensure the path is correct
+
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -26,6 +28,7 @@ const ContentPage = () => {
   const [error, setError] = useState(null);
   const DEFAULT_IMAGE =
     "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
+    
 
   useEffect(() => {
     AOS.init({
@@ -36,7 +39,6 @@ const ContentPage = () => {
       e.target.src = DEFAULT_IMAGE;
       e.target.onerror = null; // Prevent infinite loop if default image also fails
     };
-  
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -242,7 +244,7 @@ const ContentPage = () => {
                   data-aos-delay={index * 100}
                 >
                   <img
-                    src={post.image ||DEFAULT_IMAGE}
+                    src={post.image || DEFAULT_IMAGE}
                     alt={post.title}
                     className="w-full h-48 object-cover"
                   />
@@ -257,7 +259,7 @@ const ContentPage = () => {
                       {post.description || post.excerpt}
                     </p>
                     <Link
-                      to={`/blog/${post.id}`}
+                      to={`/blog/${slugify(post.title)}`}
                       className="text-blue-600 font-semibold flex items-center group"
                     >
                       Read More{" "}
@@ -338,7 +340,7 @@ const ContentPage = () => {
 
           <div className="flex justify-center mt-8">
             <Link
-              to="/case-studies"
+              to="/CaseStudyPage"
               className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 hover:bg-blue-700"
             >
               View All Case Studies

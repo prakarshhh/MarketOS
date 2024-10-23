@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import "aos/dist/aos.css";
 import AOS from "aos";
+
 const scrollToSection = (id) => {
   const element = document.getElementById(id);
   if (element) {
@@ -27,9 +28,93 @@ const scrollToSection = (id) => {
   }
 };
 const MarketingOSLandingPage = () => {
+  const [email, setEmail] = useState("");
+  const [mauticLoaded, setMauticLoaded] = useState(false);
+  const [mauticError, setMauticError] = useState(null);
+
+  // Improved Mautic script loading with error handling
+  useEffect(() => {
+    const loadMauticScript = async () => {
+      try {
+        if (typeof window.MauticSDKLoaded === "undefined") {
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src =
+            "http://165.22.11.185:8081/media/js/mautic-form.js?v6e2a1372";
+
+          // Create a promise to handle script loading
+          const scriptLoadPromise = new Promise((resolve, reject) => {
+            script.onload = () => resolve();
+            script.onerror = () =>
+              reject(new Error("Failed to load Mautic script"));
+          });
+
+          document.head.appendChild(script);
+          window.MauticDomain = "http://165.22.11.185:8081";
+          window.MauticLang = {
+            submittingMessage: "Please wait...",
+          };
+
+          // Wait for script to load
+          await scriptLoadPromise;
+
+          if (window.MauticSDK) {
+            window.MauticSDK.onLoad();
+            window.MauticSDKLoaded = true;
+            setMauticLoaded(true);
+          }
+        } else if (typeof window.MauticSDK !== "undefined") {
+          window.MauticSDK.onLoad();
+          setMauticLoaded(true);
+        }
+      } catch (error) {
+        console.error("Error loading Mautic:", error);
+        setMauticError(error.message);
+      }
+    };
+
+    loadMauticScript();
+  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!mauticLoaded) {
+      alert(
+        "Newsletter subscription is temporarily unavailable. Please try again later."
+      );
+      return;
+    }
+
+    try {
+      // Your form submission logic here
+      const formData = new FormData();
+      formData.append("mauticform[email]", email);
+      formData.append("mauticform[formId]", "2");
+      formData.append("mauticform[formName]", "newslettersubscription");
+
+      const response = await fetch(
+        "http://165.22.11.185:8081/form/submit?formId=2",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setEmail("");
+      alert("Thank you for subscribing!");
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("There was an error submitting the form. Please try again later.");
+    }
+  };
   useEffect(() => {
     AOS.init({ duration: 1000 }); // Initialize AOS with a 1-second animation duration
   }, []);
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const steps = [
@@ -117,7 +202,8 @@ const MarketingOSLandingPage = () => {
                   <Link to="/content">Contents</Link> {/* Updated link */}
                 </li>
                 <li className="cursor-pointer text-gray-700 hover:text-blue-500 transition">
-                  <Link to="http://172.105.47.241:3000/Login">Login</Link> {/* Updated link */}
+                  <Link to="http://172.105.47.241:3000/Login">Login</Link>{" "}
+                  {/* Updated link */}
                 </li>
               </ul>
             </div>
@@ -479,21 +565,37 @@ const MarketingOSLandingPage = () => {
             Stay updated with the latest news and exclusive offers from
             MarketingOS.
           </p>
-          <form
-            className="flex justify-center"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              required
-              className="border border-gray-300 rounded-l-full px-4 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="bg-blue-500 text-white rounded-r-full px-6 py-2 hover:bg-blue-600 transition duration-300">
-              Subscribe
-            </button>
-          </form>
+
+          {mauticError ? (
+            <p className="text-red-500">
+              Newsletter subscription is temporarily unavailable. Please try
+              again later.
+            </p>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex justify-center flex-col items-center"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div className="flex w-full justify-center mb-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="border border-gray-300 rounded-l-full px-4 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white rounded-r-full px-6 py-2 hover:bg-blue-600 transition duration-300"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </section>
       {/* Footer */}

@@ -18,8 +18,7 @@ import {
 } from "lucide-react";
 
 const BlogPage = () => {
-  const DEFAULT_IMAGE =
-    "https://automationagency.com/wp-content/uploads/2022/09/fi-37.1.jpeg";
+  const DEFAULT_IMAGE = "https://www.shutterstock.com/shutterstock/photos/520314613/display_1500/stock-photo-blogging-blog-word-coder-coding-using-laptop-page-keyboard-notebook-blogger-internet-computer-520314613.jpg";
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     section?.scrollIntoView({ behavior: "smooth" });
@@ -176,10 +175,10 @@ const BlogPage = () => {
                 Home
               </Link>
               <Link
-                to="/casestudy"
+                to="/content"
                 className="text-gray-700 hover:text-blue-500"
               >
-                Case Study
+                Contents
               </Link>
               <Link to="/login" className="text-gray-700 hover:text-blue-500">
                 Login
