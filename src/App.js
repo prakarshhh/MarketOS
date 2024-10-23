@@ -252,7 +252,7 @@ function Layout({ children }) {
       console.log("Leadfeeder script attempted to load."); // Debugging log
     })(process.env.REACT_APP_LEAD_FEEDER_ID);
 
-    const trackedPaths = ["/", "/blog", "/aboutus", "/contact", "/CaseStudyPage", "/content", "/privacyPolicy"];
+    const trackedPaths = ["/", "/blog", "/aboutus", "/contact", "/CaseStudyPage", "/content", "/privacyPolicy","/blog/","/CaseStudyPage/"];
 
     if (trackedPaths.includes(location.pathname)) {
       const params = new URLSearchParams(location.search);
