@@ -140,7 +140,7 @@ const BlogDetail = () => {
             </div>
           )}
           <Link
-            to="/blogPage"
+            to="/blog"
             className="inline-flex items-center text-blue-500 hover:text-blue-600"
           >
             <ArrowLeft className="mr-2" size={20} />
