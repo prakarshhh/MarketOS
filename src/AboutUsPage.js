@@ -21,6 +21,9 @@ import {
   Activity,
 } from "lucide-react";
 
+import Raunakimage from "./images/raunak.jpg"
+import Prakarshimage from "./images/prakarsh.jpg"
+import Kushagraimage from "./images/kushagra.jpg"
 const AboutUsPage = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -253,7 +256,7 @@ const AboutUsPage = () => {
                 Holistic Integration:
                 </h3>
                 <p className="text-gray-700 text-lg leading-relaxed">
-                MarketingOS seamlessly integrates essential marketing functions into one cohesive platform. Manage your content effortlessly with Wagtail, execute targeted campaigns using Mautic, and leverage analytics through PostHog—all from a single dashboard. Our goal is to simplify your workflow and enhance collaboration across teams.
+                MarketingOS seamlessly integrates essential marketing functions into one cohesive platform. Manage your content effortlessly, execute targeted campaigns, and leverage analytics, all from a single dashboard. Our goal is to simplify your workflow and enhance collaboration across teams.
                 </p>
               </div>
               <div
@@ -343,7 +346,7 @@ const AboutUsPage = () => {
                 data-aos="fade-up"
               >
                 <img
-                  src="https://github.com/prakarshhh/MarketOS/blob/main/src/images/kushagra.jpg"
+                  src={Kushagraimage}
                   alt="Team Member"
                   className="rounded-full w-32 h-32 mb-4 mx-auto"
                 />
@@ -357,12 +360,12 @@ const AboutUsPage = () => {
                 data-aos="fade-up"
               >
                 <img
-                  src="https://github.com/prakarshhh/MarketOS/blob/main/src/images/prakarsh.jpg"
+                  src={Prakarshimage}
                   alt="Team Member"
                   className="rounded-full w-32 h-32 mb-4 mx-auto"
                 />
                 <h3 className="text-xl font-semibold text-center">
-                  Prakarsh Kashyap Pookie
+                  Prakarsh Kashyap
                 </h3>
                 {/* <p className="text-gray-600 text-center">Marketing Manager</p> */}
 
@@ -373,7 +376,7 @@ const AboutUsPage = () => {
                 data-aos="fade-up"
               >
                 <img
-                  src="https://github.com/prakarshhh/MarketOS/blob/main/src/images/raunak.jpg"
+                  src={Raunakimage}
                   alt="Team Member"
                   className="rounded-full w-32 h-32 mb-4 mx-auto"
                 />
