@@ -231,7 +231,7 @@ const BlogDetail = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Back button */}
         <Link
-          to="/blogPage"
+          to="/blog"
           className="inline-flex items-center text-blue-500 hover:text-blue-600 mb-8 transition-colors duration-300"
           data-aos="fade-right"
         >
