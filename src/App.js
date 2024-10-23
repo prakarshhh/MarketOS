@@ -306,7 +306,6 @@ function App() {
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         {/* <Route path="/CaseStudyPage/:id" element={<CaseStudyDetail />} /> */}
         <Route path="/CaseStudyPage/:slug" element={<CaseStudyDetail />} />
-
         {/* Protected Route
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard" element={<Dashboard />} />

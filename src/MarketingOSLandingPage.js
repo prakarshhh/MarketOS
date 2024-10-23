@@ -134,7 +134,7 @@ const MarketingOSLandingPage = () => {
         "Build lasting connections with personalized messaging and targeted content, fostering a sense of value and understanding among your audience.",
     },
     {
-      title: "Guide Through the Buyer’s Journey",
+      title: "Seamlessly Navigate Every Step of Buyer’s Journey",
       description: "Navigate prospects smoothly through the conversion process by offering valuable resources and expert support, ensuring they receive the right content at the right time.",
     },
     {
@@ -293,19 +293,19 @@ const MarketingOSLandingPage = () => {
                 icon: Zap,
                 title: "Comprehensive Content Management",
                 description:
-                  "Harness the power of Wagtail, a robust CMS that allows you to create, manage, and distribute engaging content effortlessly. Our intuitive interface ensures your team can focus on crafting captivating stories that resonate with your audience.",
+                  "Harness the power of a CMS, that allows you to create, manage, and distribute engaging content effortlessly. Our intuitive interface ensures your team can focus on crafting captivating stories that resonate with your audience.",
               },
               {
                 icon: Users,
                 title: "Advanced Analytics for Informed Decisions",
                 description:
-                  "With integrated PostHog analytics, gain actionable insights into user behavior and campaign performance. Understand what drives your audience, optimize your strategies, and maximize your ROI with data-backed decisions.",
+                  "With integrated analytics, gain actionable insights into user behavior and campaign performance. Understand what drives your audience, optimize your strategies, and maximize your ROI with data-backed decisions.",
               },
               {
                 icon: BarChart,
                 title: "Data-Driven Email Marketing",
                 description:
-                  "Engage your customers with personalized email campaigns powered by Mautic. Utilize automated workflows to nurture leads and deliver the right message at the right time, ensuring higher conversion rates and stronger customer relationships.",
+                  "Engage your customers with personalized email campaigns. Utilize automated workflows to nurture leads and deliver the right message at the right time, ensuring higher conversion rates and stronger customer relationships.",
               },
               {
                 icon: Activity,
@@ -335,37 +335,37 @@ const MarketingOSLandingPage = () => {
 
       {/* How It Works Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <h2
-            className="text-3xl font-bold text-center mb-12"
-            data-aos="fade-up"
-          >
-            Elevate Every Stage of Your Customer Journey with MarketingOS
-          </h2>
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl font-bold text-center mb-12" data-aos="fade-up">
+      Elevate Every Stage of Your Customer Journey with MarketingOS
+    </h2>
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center"
-                data-aos="fade-up"
-                data-aos-delay={index * 200}
-              >
-                <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg transition transform hover:scale-110">
-                  {index + 1}
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-600 text-center max-w-xs">
-                  {step.description}
-                </p>
-                {index < steps.length - 1 && (
-                  <ChevronRight className="hidden md:block w-8 h-8 text-gray-400 mt-4 transition transform hover:translate-x-1" />
-                )}
-              </div>
-            ))}
+    <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+      {steps.map((step, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center w-64"  // Added fixed width here
+          data-aos="fade-up"
+          data-aos-delay={index * 200}
+        >
+          <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg transition transform hover:scale-110">
+            {index + 1}
           </div>
+          <h3 className="text-lg font-semibold mb-2 justify-center">
+            {step.title}
+          </h3>
+          <p className="text-sm text-gray-600 text-center max-w-xs justify-center">
+            {step.description}
+          </p>
+          {/* {index < steps.length - 1 && (
+            <ChevronRight className="hidden md:block w-8 h-8 text-gray-400 mt-4 transition transform hover:translate-x-1" />
+          )} */}
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Benefits-Focused Features Section */}
       <section className="py-20 bg-gray-100">
